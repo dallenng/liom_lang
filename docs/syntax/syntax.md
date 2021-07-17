@@ -1,7 +1,7 @@
 # Syntax
 
 The syntax of Liom is Rust-like. It contains only statements and expressions for the moment. Here is a representation of
-the syntax. See [here](../fuzz/corpus/main/example) for a tour of the syntax.
+the syntax. See [here](../../fuzz/corpus/main/example) for a tour of the syntax.
 
 ## Source
 
