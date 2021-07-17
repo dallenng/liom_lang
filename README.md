@@ -1,6 +1,7 @@
 # The Liom Programming Language
 
-Liom is a toy programming language I created as a learning experience.
+Liom is a toy programming language I created as a learning experience. For more information on the syntax,
+see [here](docs/syntax/syntax.md).
 
 ### Features
 
