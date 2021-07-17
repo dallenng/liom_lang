@@ -1,0 +1,11 @@
+[package]
+name = "liom_hir"
+version = "0.1.0"
+authors = ["Guillaume Dallenne <dallenneguillaume@gmail.com>"]
+edition = "2018"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+arena = { path = "../arena" }
+liom_syntax = { path = "../liom_syntax" }
+smol_str = "0.1"

@@ -1,0 +1,10 @@
+[package]
+name = "liom_cli"
+version = "0.1.0"
+authors = ["Guillaume Dallenne <dallenneguillaume@gmail.com>"]
+edition = "2018"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+liom_hir = { path = "../liom_hir" }
+liom_syntax = { path = "../liom_syntax" }

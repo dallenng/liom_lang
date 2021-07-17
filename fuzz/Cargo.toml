@@ -1,0 +1,18 @@
+[package]
+name = "fuzz"
+version = "0.1.0"
+authors = ["Guillaume Dallenne <dallenneguillaume@gmail.com>"]
+edition = "2018"
+license = "MIT OR Apache-2.0"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+liom_hir = { path = "../crates/liom_hir" }
+liom_syntax = { path = "../crates/liom_syntax" }
+
+[[bin]]
+name = "main"
+path = "fuzz_targets/main.rs"
