@@ -7,30 +7,30 @@ Liom is a toy programming language I created as a learning experience.
 #### Parser
 
 - [X] Variable definition
-- [] Literal expression
+- [ ] Literal expression
     - [X] Integer
-    - [] Character
-    - [] String
-    - [] Byte
-    - [] Float
-    - [] Boolean
+    - [ ] Character
+    - [ ] String
+    - [ ] Byte
+    - [ ] Float
+    - [ ] Boolean
 - [X] Variable reference
 - [X] Binary expression
 - [X] Unary expression
 
 #### Interpreter
 
-- [] Variable definition
-- [] Literal expression
-    - [] Integer
-    - [] Character
-    - [] String
-    - [] Byte
-    - [] Float
-    - [] Boolean
-- [] Variable reference
-- [] Binary expression
-- [] Unary expression
+- [ ] Variable definition
+- [ ] Literal expression
+    - [ ] Integer
+    - [ ] Character
+    - [ ] String
+    - [ ] Byte
+    - [ ] Float
+    - [ ] Boolean
+- [ ] Variable reference
+- [ ] Binary expression
+- [ ] Unary expression
 
 ## Installation
 
