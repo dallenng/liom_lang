@@ -1,5 +1,3 @@
-#![feature(array_map)]
-
 use std::iter::FusedIterator;
 
 use liom_token::TokenKind;
