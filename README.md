@@ -60,7 +60,7 @@ target/release/liom_cli
 
 I'm open to contributions, don't hesitate to open issues and submit PR. I try to keep the dependency graph small.
 
-![depgraph](depgraph.svg)
+![depgraph](docs/depgraph.svg)
 
 To format the code :
 
