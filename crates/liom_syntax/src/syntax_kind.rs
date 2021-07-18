@@ -54,10 +54,12 @@ impl TryFrom<SyntaxKind> for NodeKind {
 
 impl From<SyntaxKind> for u16 {
     fn from(kind: SyntaxKind) -> Self {
-        match kind {
-            SyntaxKind::Token(kind) => u16::from(u8::from(kind)),
-            SyntaxKind::Node(kind) => u16::from(u8::from(kind)) + u16::from(u8::MAX) + 1,
-        }
+        let (low, high) = match kind {
+            SyntaxKind::Token(kind) => (u8::from(kind), 0),
+            SyntaxKind::Node(kind) => (u8::from(kind), 1),
+        };
+
+        u16::from_be_bytes([high, low])
     }
 }
 
@@ -65,12 +67,12 @@ impl TryFrom<u16> for SyntaxKind {
     type Error = ();
 
     fn try_from(value: u16) -> Result<Self, Self::Error> {
-        match u8::try_from(value) {
-            Ok(value) => TokenKind::try_from(value).map(Self::Token),
-            Err(_) => u8::try_from(value - u16::from(u8::MAX) - 1)
-                .map_err(|_| ())
-                .and_then(NodeKind::try_from)
-                .map(Self::Node),
+        let [high, low] = value.to_be_bytes();
+
+        match high {
+            0 => Ok(Self::Token(TokenKind::try_from(low)?)),
+            1 => Ok(Self::Node(NodeKind::try_from(low)?)),
+            _ => Err(()),
         }
     }
 }
