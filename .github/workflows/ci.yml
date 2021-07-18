@@ -33,7 +33,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: fmt
-          args: --manifest-path fuzz -- --check
+          args: --manifest-path fuzz/Cargo.toml -- --check
 
   lint:
     name: Clippy check
@@ -59,7 +59,7 @@ jobs:
         uses: actions-rs/clippy-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          args: --manifest-path fuzz --all-features -- -D warnings
+          args: --manifest-path fuzz/Cargo.toml --all-features -- -D warnings
 
   build_and_test:
     name: Build and test
@@ -87,7 +87,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --manifest-path fuzz --all-features
+          args: --manifest-path fuzz/Cargo.toml --all-features
 
       - name: Run cargo test
         uses: actions-rs/cargo@v1
