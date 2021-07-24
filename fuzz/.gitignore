@@ -1,0 +1,9 @@
+artifacts
+coverage
+
+# Leave an example input for fuzzing
+corpus/*
+!corpus/main
+
+corpus/main/*
+!corpus/main/example

@@ -18,12 +18,3 @@ Cargo.lock
 *.pdb
 
 # End of https://www.toptal.com/developers/gitignore/api/rust
-
-fuzz/artifacts
-fuzz/coverage
-
-fuzz/corpus/*
-!fuzz/corpus/main
-
-fuzz/corpus/main/*
-!fuzz/corpus/main/example
