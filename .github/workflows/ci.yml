@@ -103,12 +103,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install latest nightly
+      - name: Install latest nightly with llvm-tools
         uses: actions-rs/toolchain@v1
         with:
           toolchain: nightly
           profile: minimal
           override: true
+          components: llvm-tools-preview
 
       - name: Install cargo-fuzz
         uses: actions-rs/install@v0.1
