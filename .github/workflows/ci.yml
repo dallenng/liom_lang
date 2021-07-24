@@ -121,7 +121,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: fuzz
-          args: run main -- -max_total_time=1800
+          args: run main -- -max_total_time=1800 -rss_limit_mb=4096
 
       - name: Upload fuzz artifacts
         if: failure()
