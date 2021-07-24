@@ -122,3 +122,10 @@ jobs:
         with:
           command: fuzz
           args: run main -- -max_total_time=1800
+
+      - name: Upload fuzz artifacts
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: fuzz-artifacts
+          path: fuzz/artifacts
