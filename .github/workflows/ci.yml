@@ -103,13 +103,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install latest nightly with llvm-tools
+      - name: Install latest nightly with rust-src and llvm-tools
         uses: actions-rs/toolchain@v1
         with:
           toolchain: nightly
           profile: minimal
           override: true
-          components: llvm-tools-preview
+          components: rust-src, llvm-tools-preview
+
+      - name: Install cargo-binutils
+        uses: actions-rs/install@v0.1
+        with:
+          crate: cargo-binutils
+          version: latest
+          use-tool-cache: true
 
       - name: Install cargo-fuzz
         uses: actions-rs/install@v0.1
