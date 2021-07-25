@@ -114,7 +114,7 @@ jobs:
         uses: actions-rs/install@v0.1
         with:
           crate: cargo-fuzz
-          version: latest
+          version: 0.10.1
           use-tool-cache: true
 
       - name: Run cargo fuzz
