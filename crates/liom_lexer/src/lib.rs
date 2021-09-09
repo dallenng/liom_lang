@@ -33,19 +33,17 @@ impl<'s> Lexer<'s> {
             return None;
         }
 
-        if let Some((kind, len)) = self.matcher.find(&self.text[self.pos..]) {
-            let pos = self.pos;
+        let start_pos = self.pos;
+        let kind = if let Some((kind, len)) = self.matcher.find(&self.text[start_pos..]) {
             self.pos += len;
-            Some(Token::new(kind, &self.text[pos..self.pos], pos))
+            kind
         } else {
-            let start_err = self.pos;
-            let text_len = self.text.len();
-
             self.pos += 1;
             while !self.text.is_char_boundary(self.pos) {
                 self.pos += 1;
             }
 
+            let text_len = self.text.len();
             while self.pos < text_len && !self.matcher.is_match(&self.text[self.pos..]) {
                 self.pos += 1;
                 while !self.text.is_char_boundary(self.pos) {
@@ -53,12 +51,10 @@ impl<'s> Lexer<'s> {
                 }
             }
 
-            Some(Token::new(
-                TokenKind::Error,
-                &self.text[start_err..self.pos],
-                start_err,
-            ))
-        }
+            TokenKind::Error
+        };
+
+        Some(Token::new(kind, &self.text[start_pos..self.pos], start_pos))
     }
 }
 
