@@ -8,7 +8,7 @@ license = "MIT OR Apache-2.0"
 [dependencies]
 liom_lexer = { path = "../liom_lexer" }
 liom_parser = { path = "../liom_parser" }
-rowan = "0.13.0-pre.7"
+rowan = "0.13"
 
 [dev-dependencies]
 expect-test = "1"
