@@ -28,13 +28,7 @@ impl TokenSource {
     pub fn new(tokens: &[Token]) -> Self {
         let tokens = tokens
             .iter()
-            .filter_map(|t| {
-                if t.kind.is_trivia() {
-                    None
-                } else {
-                    Some(t.kind)
-                }
-            })
+            .filter_map(|t| if t.kind.is_trivia() { None } else { Some(t.kind) })
             .collect::<Vec<_>>();
 
         let current = (token(&tokens, 0), 0);

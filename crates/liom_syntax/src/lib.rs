@@ -85,17 +85,17 @@ impl fmt::Debug for Parse {
 
         if f.alternate() {
             if let Some((last, errors)) = self.errors.split_last() {
-                write!(f, "{:#?}", syntax_node)?;
+                write!(f, "{syntax_node:#?}")?;
                 for err in errors {
-                    writeln!(f, "{}", err)?;
+                    writeln!(f, "{err}")?;
                 }
-                write!(f, "{}", last)
+                write!(f, "{last}")
             } else {
-                let formatted = format!("{:#?}", syntax_node);
+                let formatted = format!("{syntax_node:#?}");
                 write!(f, "{}", &formatted[..formatted.len() - 1])
             }
         } else {
-            write!(f, "{:?}", syntax_node)
+            write!(f, "{syntax_node:?}")
         }
     }
 }

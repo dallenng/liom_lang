@@ -23,8 +23,5 @@ fn validate_ok_literal() {
 
 #[test]
 fn validate_too_large_literal() {
-    check("99999999999999999999", [(
-        ValidationErrorKind::NumberLiteralTooLarge,
-        0..20,
-    )]);
+    check("99999999999999999999", [(ValidationErrorKind::NumberLiteralTooLarge, 0..20)]);
 }

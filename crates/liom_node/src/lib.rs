@@ -25,16 +25,8 @@ impl NodeKind {
 
     pub const KIND_COUNT: usize = mem::variant_count::<Self>();
 
-    pub const KINDS: [Self; Self::KIND_COUNT] = [
-        Root,
-        Literal,
-        VariableRef,
-        VariableDef,
-        InfixExpr,
-        PrefixExpr,
-        ParenExpr,
-        Error,
-    ];
+    pub const KINDS: [Self; Self::KIND_COUNT] =
+        [Root, Literal, VariableRef, VariableDef, InfixExpr, PrefixExpr, ParenExpr, Error];
 }
 
 impl From<NodeKind> for u8 {

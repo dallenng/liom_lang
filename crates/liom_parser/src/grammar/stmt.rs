@@ -6,11 +6,7 @@ use crate::TokenSource;
 
 impl<'t, T: TokenSource> Parser<'t, T> {
     pub(super) fn stmt(&mut self) -> Option<CompletedMarker> {
-        if self.at(TokenKind::LetKw) {
-            Some(self.variable_def())
-        } else {
-            self.expr()
-        }
+        if self.at(TokenKind::LetKw) { Some(self.variable_def()) } else { self.expr() }
     }
 
     fn variable_def(&mut self) -> CompletedMarker {

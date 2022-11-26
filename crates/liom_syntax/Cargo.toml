@@ -1,14 +1,14 @@
 [package]
 name = "liom_syntax"
-version = "0.1.0"
-edition = "2021"
-authors = ["Guillaume Dallenne <dallenneguillaume@gmail.com>"]
-license = "MIT OR Apache-2.0"
+version = { workspace = true }
+authors = { workspace = true }
+edition = { workspace = true }
+license = { workspace = true }
 
 [dependencies]
-liom_lexer = { path = "../liom_lexer" }
-liom_parser = { path = "../liom_parser" }
-rowan = "0.13"
+liom_lexer = { workspace = true }
+liom_parser = { workspace = true }
+rowan = { workspace = true }
 
 [dev-dependencies]
-expect-test = "1"
+expect-test = { workspace = true }

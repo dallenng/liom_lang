@@ -13,9 +13,7 @@ pub struct Database {
 
 impl Database {
     pub const fn new() -> Self {
-        Self {
-            exprs: Arena::new(),
-        }
+        Self { exprs: Arena::new() }
     }
 
     pub fn lower(&mut self, root: &ast::Root) -> impl Iterator<Item = Stmt> + '_ {
@@ -55,11 +53,7 @@ impl Database {
         let lhs = self.lower_expr(expr.lhs());
         let rhs = self.lower_expr(expr.rhs());
 
-        Expr::Binary {
-            lhs: self.exprs.alloc(lhs),
-            rhs: self.exprs.alloc(rhs),
-            op,
-        }
+        Expr::Binary { lhs: self.exprs.alloc(lhs), rhs: self.exprs.alloc(rhs), op }
     }
 
     fn lower_unary_expr(&mut self, expr: &ast::UnaryExpr) -> Expr {
@@ -69,9 +63,6 @@ impl Database {
 
         let expr = self.lower_expr(expr.expr());
 
-        Expr::Unary {
-            expr: self.exprs.alloc(expr),
-            op,
-        }
+        Expr::Unary { expr: self.exprs.alloc(expr), op }
     }
 }

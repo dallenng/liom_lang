@@ -21,11 +21,7 @@ pub struct Lexer<'s> {
 
 impl<'s> Lexer<'s> {
     fn new(text: &'s str) -> Self {
-        Self {
-            text,
-            matcher: Matcher::new(),
-            pos: 0,
-        }
+        Self { text, matcher: Matcher::new(), pos: 0 }
     }
 
     fn next_token(&mut self) -> Option<Token<'s>> {

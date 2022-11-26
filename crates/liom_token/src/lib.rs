@@ -71,10 +71,7 @@ impl TokenKind {
     }
 
     pub const fn is_symbol(self) -> bool {
-        matches!(
-            self,
-            Plus | Minus | Star | Slash | Equals | LParen | RParen | LBrace | RBrace
-        )
+        matches!(self, Plus | Minus | Star | Slash | Equals | LParen | RParen | LBrace | RBrace)
     }
 
     pub const fn is_error(self) -> bool {

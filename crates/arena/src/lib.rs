@@ -53,10 +53,7 @@ pub struct Idx<T> {
 
 impl<T> From<usize> for Idx<T> {
     fn from(raw: usize) -> Self {
-        Self {
-            raw: raw.try_into().expect("too many elements"),
-            _phantom: PhantomData,
-        }
+        Self { raw: raw.try_into().expect("too many elements"), _phantom: PhantomData }
     }
 }
 
@@ -73,7 +70,7 @@ impl<T> fmt::Debug for Idx<T> {
         if let Some(i) = type_name.rfind(':') {
             type_name = &type_name[i + 1..];
         }
-        write!(f, "Idx::<{}>({})", type_name, self.raw)
+        write!(f, "Idx::<{type_name}>({})", self.raw)
     }
 }
 

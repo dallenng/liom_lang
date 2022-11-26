@@ -57,11 +57,9 @@ enum ValidationErrorKind {
 impl fmt::Display for ValidationErrorKind {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            ValidationErrorKind::NumberLiteralTooLarge => write!(
-                f,
-                "number literal is larger than an integer's maximum value, {}",
-                u64::MAX
-            ),
+            ValidationErrorKind::NumberLiteralTooLarge => {
+                write!(f, "number literal is larger than an integer's maximum value, {}", u64::MAX)
+            }
         }
     }
 }
