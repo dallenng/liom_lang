@@ -6,10 +6,7 @@ use crate::{ParseError, TreeSink};
 
 #[derive(Debug, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum Event {
-    StartNode {
-        kind: NodeKind,
-        forward_parent: Option<usize>,
-    },
+    StartNode { kind: NodeKind, forward_parent: Option<usize> },
     FinishNode,
     Token,
     Error(ParseError),
@@ -21,10 +18,7 @@ pub fn process(mut events: Vec<Event>, sink: &mut impl TreeSink) {
 
     for i in 0..events.len() {
         match mem::replace(&mut events[i], Event::Placeholder) {
-            Event::StartNode {
-                kind,
-                forward_parent,
-            } => {
+            Event::StartNode { kind, forward_parent } => {
                 kinds.push(kind);
 
                 let mut i = i;
@@ -34,10 +28,7 @@ pub fn process(mut events: Vec<Event>, sink: &mut impl TreeSink) {
                     i += fp;
 
                     forward_parent = match mem::replace(&mut events[i], Event::Placeholder) {
-                        Event::StartNode {
-                            kind,
-                            forward_parent,
-                        } => {
+                        Event::StartNode { kind, forward_parent } => {
                             kinds.push(kind);
                             forward_parent
                         }

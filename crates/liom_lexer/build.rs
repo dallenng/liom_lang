@@ -61,8 +61,8 @@ const GENERATED_DFA: [(liom_token::TokenKind, &[u8]); {}] = [
         )?;
     }
 
-    writeln!(output, "{}];", const_str_le)?;
-    writeln!(output, "{}];", const_str_be)?;
+    writeln!(output, "{const_str_le}];")?;
+    writeln!(output, "{const_str_be}];")?;
 
     println!("cargo:rerun-if-changed=build.rs");
     Ok(())

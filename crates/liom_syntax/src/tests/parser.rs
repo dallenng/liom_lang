@@ -11,7 +11,7 @@ mod grammar;
 
 fn check(text: &str, expected_tree: &Expect) {
     let parse = parse(text);
-    expected_tree.assert_eq(&*format!("{:#?}", parse));
+    expected_tree.assert_eq(&format!("{parse:#?}"));
 }
 
 fn check_error(
@@ -20,13 +20,10 @@ fn check_error(
     range: Range<usize>,
     output: &str,
 ) {
-    let range = TextRange::new(
-        range.start.try_into().unwrap(),
-        range.end.try_into().unwrap(),
-    );
+    let range = TextRange::new(range.start.try_into().unwrap(), range.end.try_into().unwrap());
     let error = SyntaxError::new(ParseError::new(expected, found), range);
 
-    assert_eq!(format!("{}", error), output);
+    assert_eq!(format!("{error}"), output);
 }
 
 #[test]
@@ -60,23 +57,13 @@ fn one_expected_did_find() {
 
 #[test]
 fn one_expected_did_not_find() {
-    check_error(
-        vec![TokenKind::RParen],
-        None,
-        5..6,
-        "error at 5..6: expected ')'",
-    );
+    check_error(vec![TokenKind::RParen], None, 5..6, "error at 5..6: expected ')'");
 }
 
 #[test]
 fn multiple_expected_did_find() {
     check_error(
-        vec![
-            TokenKind::Number,
-            TokenKind::Ident,
-            TokenKind::Minus,
-            TokenKind::LParen,
-        ],
+        vec![TokenKind::Number, TokenKind::Ident, TokenKind::Minus, TokenKind::LParen],
         Some(TokenKind::LetKw),
         100..105,
         "error at 100..105: expected number, identifier, '-' or '(', but found 'let'",

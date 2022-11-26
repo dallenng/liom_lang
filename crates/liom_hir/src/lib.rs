@@ -13,15 +13,8 @@ pub enum Stmt {
 pub enum Expr {
     Literal(Option<u64>),
     VariableRef(SmolStr),
-    Binary {
-        lhs: Idx<Self>,
-        rhs: Idx<Self>,
-        op: BinaryOp,
-    },
-    Unary {
-        expr: Idx<Self>,
-        op: UnaryOp,
-    },
+    Binary { lhs: Idx<Self>, rhs: Idx<Self>, op: BinaryOp },
+    Unary { expr: Idx<Self>, op: UnaryOp },
     Missing,
 }
 

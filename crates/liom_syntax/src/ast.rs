@@ -4,11 +4,7 @@ use crate::{SyntaxElement, SyntaxExt, SyntaxNode, SyntaxToken};
 
 macro_rules! cast {
     ($s:ident) => {
-        if Self::can_cast($s.kind_ext()) {
-            Some(Self($s))
-        } else {
-            None
-        }
+        if Self::can_cast($s.kind_ext()) { Some(Self($s)) } else { None }
     };
 }
 
@@ -264,10 +260,7 @@ pub enum BinaryOp {
 
 impl AstToken for BinaryOp {
     fn can_cast(kind: TokenKind) -> bool {
-        matches!(
-            kind,
-            TokenKind::Plus | TokenKind::Minus | TokenKind::Star | TokenKind::Slash
-        )
+        matches!(kind, TokenKind::Plus | TokenKind::Minus | TokenKind::Star | TokenKind::Slash)
     }
 
     fn cast(syntax: SyntaxToken) -> Option<Self>

@@ -6,126 +6,56 @@ on:
   pull_request:
     branches: [ master ]
 
-  workflow_dispatch:
+env:
+  CARGO_TERM_COLOR: always
 
 jobs:
   fmt:
-    name: Check formatting
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
 
-      - name: Install latest nightly with rustfmt
-        uses: actions-rs/toolchain@v1
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hecrj/setup-rust-action@v1
         with:
-          toolchain: nightly
-          profile: minimal
-          override: true
+          rust-version: nightly
           components: rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - run: |
+          ci/fmt_install.sh
+          ci/fmt.sh
 
-      - name: Run cargo fmt
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: --all -- --check
-
-      - name: Run cargo fmt on fuzz
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: --manifest-path fuzz/Cargo.toml -- --check
-
-  lint:
-    name: Clippy check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Install latest nightly with clippy
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: nightly
-          profile: minimal
-          override: true
-          components: clippy
-
-      - name: Run cargo clippy
-        uses: actions-rs/clippy-check@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: --workspace --all-targets --all-features -- -D warnings
-
-      - name: Run cargo clippy on fuzz
-        uses: actions-rs/clippy-check@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: --manifest-path fuzz/Cargo.toml --all-targets --all-features -- -D warnings
-
-  build_and_test:
-    name: Build and test
+  check:
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+
     runs-on: ${{ matrix.os }}
+
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Install latest nightly
-        uses: actions-rs/toolchain@v1
+      - uses: actions/checkout@v3
+      - uses: hecrj/setup-rust-action@v1
         with:
-          toolchain: nightly
-          profile: minimal
-          override: true
-
-      - name: Run cargo build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --workspace --all-targets --all-features
-
-      - name: Run cargo build on fuzz
-        if: ${{ matrix.os != 'windows-latest' }}
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --manifest-path fuzz/Cargo.toml --all-targets --all-features
-
-      - name: Run cargo test
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --workspace --all-targets --all-features
+          rust-version: nightly
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+      - run: ci/check.sh
+        shell: bash
 
   fuzz:
-    name: Fuzz
     runs-on: ubuntu-latest
-    needs: [ fmt, lint, build_and_test ]
+
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Install latest nightly
-        uses: actions-rs/toolchain@v1
+      - uses: actions/checkout@v3
+      - uses: hecrj/setup-rust-action@v1
         with:
-          toolchain: nightly
-          profile: minimal
-          override: true
-
-      - name: Install cargo-fuzz
-        uses: actions-rs/install@v0.1
-        with:
-          crate: cargo-fuzz
-          version: latest
-          use-tool-cache: true
-
-      - name: Run cargo fuzz
-        uses: actions-rs/cargo@v1
-        with:
-          command: fuzz
-          args: run main -- -max_total_time=1800
-
-      - name: Upload fuzz artifacts
+          rust-version: nightly
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+      - run: |
+          ci/fuzz_install.sh
+          ci/fuzz.sh
+      - uses: actions/upload-artifact@v3
         if: failure()
-        uses: actions/upload-artifact@v2
         with:
           name: fuzz-artifacts
           path: fuzz/artifacts

@@ -45,10 +45,7 @@ fn lower_variable_def_without_name() {
 
 #[test]
 fn lower_variable_def_without_value() {
-    check_stmt("let a =", &Stmt::VariableDef {
-        name: "a".into(),
-        value: Expr::Missing,
-    });
+    check_stmt("let a =", &Stmt::VariableDef { name: "a".into(), value: Expr::Missing });
 }
 
 #[test]
@@ -63,11 +60,7 @@ fn lower_literal() {
 
 #[test]
 fn lower_variable_ref() {
-    check_expr(
-        "foo",
-        &Expr::VariableRef("foo".into()),
-        &Database::default(),
-    );
+    check_expr("foo", &Expr::VariableRef("foo".into()), &Database::default());
 }
 
 #[test]
@@ -76,15 +69,7 @@ fn lower_binary_expr() {
     let lhs = exprs.alloc(Expr::Literal(Some(1)));
     let rhs = exprs.alloc(Expr::Literal(Some(2)));
 
-    check_expr(
-        "1 + 2",
-        &Expr::Binary {
-            lhs,
-            rhs,
-            op: BinaryOp::Add,
-        },
-        &Database { exprs },
-    );
+    check_expr("1 + 2", &Expr::Binary { lhs, rhs, op: BinaryOp::Add }, &Database { exprs });
 }
 
 #[test]
@@ -93,15 +78,7 @@ fn lower_binary_expr_without_rhs() {
     let lhs = exprs.alloc(Expr::Literal(Some(10)));
     let rhs = exprs.alloc(Expr::Missing);
 
-    check_expr(
-        "10 -",
-        &Expr::Binary {
-            lhs,
-            rhs,
-            op: BinaryOp::Sub,
-        },
-        &Database { exprs },
-    );
+    check_expr("10 -", &Expr::Binary { lhs, rhs, op: BinaryOp::Sub }, &Database { exprs });
 }
 
 #[test]
@@ -109,14 +86,7 @@ fn lower_unary_expr() {
     let mut exprs = Arena::default();
     let expr = exprs.alloc(Expr::Literal(Some(10)));
 
-    check_expr(
-        "-10",
-        &Expr::Unary {
-            expr,
-            op: UnaryOp::Neg,
-        },
-        &Database { exprs },
-    );
+    check_expr("-10", &Expr::Unary { expr, op: UnaryOp::Neg }, &Database { exprs });
 }
 
 #[test]
@@ -124,21 +94,10 @@ fn lower_unary_expr_without_expr() {
     let mut exprs = Arena::default();
     let expr = exprs.alloc(Expr::Missing);
 
-    check_expr(
-        "-",
-        &Expr::Unary {
-            expr,
-            op: UnaryOp::Neg,
-        },
-        &Database { exprs },
-    );
+    check_expr("-", &Expr::Unary { expr, op: UnaryOp::Neg }, &Database { exprs });
 }
 
 #[test]
 fn lower_paren_expr() {
-    check_expr(
-        "(((((abc)))))",
-        &Expr::VariableRef("abc".into()),
-        &Database::default(),
-    );
+    check_expr("(((((abc)))))", &Expr::VariableRef("abc".into()), &Database::default());
 }

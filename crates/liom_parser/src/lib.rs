@@ -49,20 +49,20 @@ impl ParseError {
 impl fmt::Display for ParseError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         if let Some((first, expected)) = self.expected.split_first() {
-            write!(f, "expected {}", first)?;
+            write!(f, "expected {first}")?;
             if let Some((last, expected)) = expected.split_last() {
                 for kind in expected {
-                    write!(f, ", {}", kind)?;
+                    write!(f, ", {kind}")?;
                 }
-                write!(f, " or {}", last)?;
+                write!(f, " or {last}")?;
             }
         }
 
         if let Some(found) = self.found {
             if self.expected.is_empty() {
-                write!(f, "found {}", found)?;
+                write!(f, "found {found}")?;
             } else {
-                write!(f, ", but found {}", found)?;
+                write!(f, ", but found {found}")?;
             }
         }
 

@@ -1,18 +1,24 @@
 [package]
 name = "fuzz"
-version = "0.1.0"
-edition = "2021"
+version = "0.0.0"
 authors = ["Guillaume Dallenne <dallenneguillaume@gmail.com>"]
+edition = "2021"
 license = "MIT OR Apache-2.0"
+publish = false
 
 [package.metadata]
 cargo-fuzz = true
 
 [dependencies]
-libfuzzer-sys = "0.4"
+libfuzzer-sys = "0.4.5"
 liom_hir = { path = "../crates/liom_hir" }
 liom_syntax = { path = "../crates/liom_syntax" }
+
+[profile.release]
+debug = 1
 
 [[bin]]
 name = "main"
 path = "fuzz_targets/main.rs"
+test = false
+doc = false

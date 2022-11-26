@@ -25,11 +25,7 @@ impl Matcher {
 
     pub fn find(&self, text: &str) -> Option<(TokenKind, usize)> {
         // max returns the last max so we reverse iteration to get the first max.
-        self.rules
-            .iter()
-            .rev()
-            .filter_map(|r| r.find(text))
-            .max_by(|a, b| a.1.cmp(&b.1))
+        self.rules.iter().rev().filter_map(|r| r.find(text)).max_by(|a, b| a.1.cmp(&b.1))
     }
 }
 

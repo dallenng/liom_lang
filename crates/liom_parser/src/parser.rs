@@ -16,11 +16,7 @@ pub struct Parser<'t, T> {
 
 impl<'t, T> Parser<'t, T> {
     pub fn new(source: &'t mut T) -> Self {
-        Self {
-            source,
-            events: Vec::new(),
-            expected_kinds: Vec::new(),
-        }
+        Self { source, events: Vec::new(), expected_kinds: Vec::new() }
     }
 
     pub fn start(&mut self) -> Marker {
@@ -48,10 +44,7 @@ impl<'t, T: TokenSource> Parser<'t, T> {
     pub fn error(&mut self) {
         let found = self.current();
 
-        self.events.push(Event::Error(ParseError::new(
-            mem::take(&mut self.expected_kinds),
-            found,
-        )));
+        self.events.push(Event::Error(ParseError::new(mem::take(&mut self.expected_kinds), found)));
 
         if !self.at_set(RECOVERY_SET) && !self.at_end() {
             let m = self.start();
@@ -92,10 +85,7 @@ pub struct Marker {
 
 impl Marker {
     const fn new(pos: usize) -> Self {
-        Self {
-            pos,
-            completed: false,
-        }
+        Self { pos, completed: false }
     }
 
     pub fn complete<T>(mut self, parser: &mut Parser<T>, kind: NodeKind) -> CompletedMarker {
@@ -104,10 +94,7 @@ impl Marker {
         let event = &mut parser.events[self.pos];
         assert_eq!(*event, Event::Placeholder);
 
-        *event = Event::StartNode {
-            kind,
-            forward_parent: None,
-        };
+        *event = Event::StartNode { kind, forward_parent: None };
 
         parser.events.push(Event::FinishNode);
 
@@ -117,9 +104,7 @@ impl Marker {
 
 impl Drop for Marker {
     fn drop(&mut self) {
-        if !self.completed && !std::thread::panicking() {
-            panic!("Marker need to be completed");
-        }
+        assert!(self.completed || std::thread::panicking(), "Marker need to be completed");
     }
 }
 

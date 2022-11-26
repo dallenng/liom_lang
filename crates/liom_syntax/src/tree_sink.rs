@@ -17,8 +17,7 @@ pub struct TreeSink<'t> {
 
 impl<'t> liom_parser::TreeSink for TreeSink<'t> {
     fn start_node(&mut self, kind: NodeKind) {
-        self.builder
-            .start_node(LiomLanguage::kind_to_raw(kind.into()));
+        self.builder.start_node(LiomLanguage::kind_to_raw(kind.into()));
         self.eat_trivia();
     }
 
@@ -43,28 +42,15 @@ impl<'t> liom_parser::TreeSink for TreeSink<'t> {
 
 impl<'t> TreeSink<'t> {
     pub fn new(text: &'t str, tokens: &'t [Token<'t>]) -> Self {
-        Self {
-            text,
-            tokens,
-            pos: 0,
-            builder: GreenNodeBuilder::new(),
-            errors: Vec::new(),
-        }
+        Self { text, tokens, pos: 0, builder: GreenNodeBuilder::new(), errors: Vec::new() }
     }
 
     pub fn finish(self) -> Parse {
-        Parse {
-            green_node: self.builder.finish(),
-            errors: self.errors,
-        }
+        Parse { green_node: self.builder.finish(), errors: self.errors }
     }
 
     fn eat_trivia(&mut self) {
-        while self
-            .tokens
-            .get(self.pos)
-            .map_or(false, |t| t.kind.is_trivia())
-        {
+        while self.tokens.get(self.pos).map_or(false, |t| t.kind.is_trivia()) {
             self.do_token();
         }
     }
