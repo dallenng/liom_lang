@@ -5,6 +5,7 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
 
 env:
   CARGO_TERM_COLOR: always
@@ -20,9 +21,11 @@ jobs:
           rust-version: nightly
           components: rustfmt
       - uses: Swatinem/rust-cache@v2
-      - run: |
-          ci/fmt_install.sh
-          ci/fmt.sh
+      - name: Install cargo-sort
+        run: cargo install cargo-sort
+
+      - name: Check formatting
+        run: ci/fmt.sh
 
   check:
     strategy:
@@ -38,7 +41,9 @@ jobs:
           rust-version: nightly
           components: clippy
       - uses: Swatinem/rust-cache@v2
-      - run: ci/check.sh
+
+      - name: Check
+        run: ci/check.sh
         shell: bash
 
   fuzz:
@@ -51,9 +56,12 @@ jobs:
           rust-version: nightly
           components: clippy
       - uses: Swatinem/rust-cache@v2
-      - run: |
-          ci/fuzz_install.sh
-          ci/fuzz.sh
+      - name: Install cargo-fuzz
+        run: cargo install cargo-fuzz
+
+      - name: Check and run fuzz
+        run: ci/fuzz.sh
+
       - uses: actions/upload-artifact@v3
         if: failure()
         with:

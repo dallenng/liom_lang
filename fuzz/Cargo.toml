@@ -10,7 +10,7 @@ publish = false
 cargo-fuzz = true
 
 [dependencies]
-libfuzzer-sys = "0.4.5"
+libfuzzer-sys = "0.4.6"
 liom_hir = { path = "../crates/liom_hir" }
 liom_syntax = { path = "../crates/liom_syntax" }
 
