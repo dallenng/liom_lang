@@ -50,14 +50,12 @@ const GENERATED_DFA: [(liom_token::TokenKind, &[u8]); {}] = [
 
         writeln!(
             const_str_le,
-            "    (liom_token::TokenKind::{:?}, &Aligned({:?}).0),",
-            kind, dfa_bytes_le
+            "    (liom_token::TokenKind::{kind:?}, &Aligned({dfa_bytes_le:?}).0),",
         )?;
 
         writeln!(
             const_str_be,
-            "    (liom_token::TokenKind::{:?}, &Aligned({:?}).0),",
-            kind, dfa_bytes_be
+            "    (liom_token::TokenKind::{kind:?}, &Aligned({dfa_bytes_be:?}).0),",
         )?;
     }
 
