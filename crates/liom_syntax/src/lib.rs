@@ -80,7 +80,7 @@ impl Parse {
 }
 
 impl fmt::Debug for Parse {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let syntax_node = self.syntax();
 
         if f.alternate() {
@@ -113,7 +113,7 @@ impl SyntaxError {
 }
 
 impl fmt::Display for SyntaxError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "error at {:?}: {}", self.range, self.parse_error)
     }
 }

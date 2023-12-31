@@ -25,7 +25,7 @@ impl liom_parser::TokenSource for TokenSource {
 }
 
 impl TokenSource {
-    pub fn new(tokens: &[Token]) -> Self {
+    pub fn new(tokens: &[Token<'_>]) -> Self {
         let tokens = tokens
             .iter()
             .filter_map(|t| if t.kind.is_trivia() { None } else { Some(t.kind) })

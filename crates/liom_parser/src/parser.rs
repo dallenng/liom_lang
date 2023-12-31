@@ -88,7 +88,7 @@ impl Marker {
         Self { pos, completed: false }
     }
 
-    pub fn complete<T>(mut self, parser: &mut Parser<T>, kind: NodeKind) -> CompletedMarker {
+    pub fn complete<T>(mut self, parser: &mut Parser<'_, T>, kind: NodeKind) -> CompletedMarker {
         self.completed = true;
 
         let event = &mut parser.events[self.pos];
@@ -114,7 +114,7 @@ pub struct CompletedMarker {
 }
 
 impl CompletedMarker {
-    pub fn precede<T>(self, parser: &mut Parser<T>) -> Marker {
+    pub fn precede<T>(self, parser: &mut Parser<'_, T>) -> Marker {
         let m = parser.start();
 
         match &mut parser.events[self.pos] {

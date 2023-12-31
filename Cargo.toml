@@ -21,7 +21,7 @@ liom_token = { path = "crates/liom_token", default-features = false }
 
 # External
 expect-test = { version = "1.4.0", default-features = false }
-libfuzzer-sys = { version = "0.4.6", default-features = false }
+libfuzzer-sys = { version = "0.4.6", default-features = false, features = ["link_libfuzzer"] }
 regex-automata = { version = "0.1.10", default-features = false }
 rowan = { version = "0.15.10", default-features = false }
 smol_str = { version = "0.1.23", default-features = false }

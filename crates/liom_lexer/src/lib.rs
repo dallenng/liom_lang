@@ -8,7 +8,7 @@ mod matcher;
 #[cfg(test)]
 mod tests;
 
-pub fn lex(text: &str) -> Lexer {
+pub fn lex(text: &str) -> Lexer<'_> {
     Lexer::new(text)
 }
 
