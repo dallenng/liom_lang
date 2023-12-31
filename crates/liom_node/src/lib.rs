@@ -3,8 +3,6 @@
 use std::convert::TryFrom;
 use std::mem;
 
-use crate::NodeKind::*;
-
 #[repr(u8)]
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum NodeKind {
@@ -21,12 +19,20 @@ pub enum NodeKind {
 impl NodeKind {
     pub const KIND_MIN: u8 = 0;
 
-    pub const KIND_MAX: u8 = Error as u8;
+    pub const KIND_MAX: u8 = Self::Error as u8;
 
     pub const KIND_COUNT: usize = mem::variant_count::<Self>();
 
-    pub const KINDS: [Self; Self::KIND_COUNT] =
-        [Root, Literal, VariableRef, VariableDef, InfixExpr, PrefixExpr, ParenExpr, Error];
+    pub const KINDS: [Self; Self::KIND_COUNT] = [
+        Self::Root,
+        Self::Literal,
+        Self::VariableRef,
+        Self::VariableDef,
+        Self::InfixExpr,
+        Self::PrefixExpr,
+        Self::ParenExpr,
+        Self::Error,
+    ];
 }
 
 impl From<NodeKind> for u8 {

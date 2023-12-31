@@ -3,7 +3,7 @@
 use libfuzzer_sys::fuzz_target;
 use liom_syntax::ast::AstNode;
 
-fuzz_target!(|data: &str| { crate::run(data) });
+fuzz_target!(|data: &str| run(data));
 
 fn run(data: &str) {
     let parse = liom_syntax::parse(data);

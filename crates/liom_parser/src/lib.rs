@@ -47,7 +47,7 @@ impl ParseError {
 }
 
 impl fmt::Display for ParseError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         if let Some((first, expected)) = self.expected.split_first() {
             write!(f, "expected {first}")?;
             if let Some((last, expected)) = expected.split_last() {

@@ -3,8 +3,6 @@
 use std::convert::TryFrom;
 use std::{fmt, mem};
 
-use crate::TokenKind::*;
-
 #[repr(u8)]
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum TokenKind {
@@ -28,54 +26,78 @@ pub enum TokenKind {
 impl TokenKind {
     pub const KIND_MIN: u8 = 0;
 
-    pub const KIND_MAX: u8 = Error as u8;
+    pub const KIND_MAX: u8 = Self::Error as u8;
 
     pub const KIND_COUNT: usize = mem::variant_count::<Self>();
 
     pub const KINDS: [Self; Self::KIND_COUNT] = [
-        Whitespace, Comment, LetKw, Ident, Number, Plus, Minus, Star, Slash, Equals, LParen,
-        RParen, LBrace, RBrace, Error,
+        Self::Whitespace,
+        Self::Comment,
+        Self::LetKw,
+        Self::Ident,
+        Self::Number,
+        Self::Plus,
+        Self::Minus,
+        Self::Star,
+        Self::Slash,
+        Self::Equals,
+        Self::LParen,
+        Self::RParen,
+        Self::LBrace,
+        Self::RBrace,
+        Self::Error,
     ];
 
     pub const KINDS_WITH_REGEX: [(Self, &'static str); Self::KIND_COUNT - 1] = [
-        (Whitespace, r"[ \n]+"),
-        (Comment, r"//.*"),
-        (LetKw, r"let"),
-        (Ident, r"[a-zA-Z][a-zA-Z0-9_]*|_+[a-zA-Z0-9][a-zA-Z0-9_]*"),
-        (Number, r"[0-9]+"),
-        (Plus, r"\+"),
-        (Minus, r"-"),
-        (Star, r"\*"),
-        (Slash, r"/"),
-        (Equals, r"="),
-        (LParen, r"\("),
-        (RParen, r"\)"),
-        (LBrace, r"\{"),
-        (RBrace, r"\}"),
+        (Self::Whitespace, r"[ \n]+"),
+        (Self::Comment, r"//.*"),
+        (Self::LetKw, r"let"),
+        (Self::Ident, r"[a-zA-Z][a-zA-Z0-9_]*|_+[a-zA-Z0-9][a-zA-Z0-9_]*"),
+        (Self::Number, r"[0-9]+"),
+        (Self::Plus, r"\+"),
+        (Self::Minus, r"-"),
+        (Self::Star, r"\*"),
+        (Self::Slash, r"/"),
+        (Self::Equals, r"="),
+        (Self::LParen, r"\("),
+        (Self::RParen, r"\)"),
+        (Self::LBrace, r"\{"),
+        (Self::RBrace, r"\}"),
     ];
 
     pub const fn is_trivia(self) -> bool {
-        matches!(self, Whitespace | Comment)
+        matches!(self, Self::Whitespace | Self::Comment)
     }
 
     pub const fn is_keyword(self) -> bool {
-        matches!(self, LetKw)
+        matches!(self, Self::LetKw)
     }
 
     pub const fn is_ident(self) -> bool {
-        matches!(self, Ident)
+        matches!(self, Self::Ident)
     }
 
     pub const fn is_literal(self) -> bool {
-        matches!(self, Number)
+        matches!(self, Self::Number)
     }
 
     pub const fn is_symbol(self) -> bool {
-        matches!(self, Plus | Minus | Star | Slash | Equals | LParen | RParen | LBrace | RBrace)
+        matches!(
+            self,
+            Self::Plus
+                | Self::Minus
+                | Self::Star
+                | Self::Slash
+                | Self::Equals
+                | Self::LParen
+                | Self::RParen
+                | Self::LBrace
+                | Self::RBrace
+        )
     }
 
     pub const fn is_error(self) -> bool {
-        matches!(self, Error)
+        matches!(self, Self::Error)
     }
 }
 
@@ -98,23 +120,23 @@ impl TryFrom<u8> for TokenKind {
 }
 
 impl fmt::Display for TokenKind {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.write_str(match self {
-            Whitespace => "whitespace",
-            Comment => "comment",
-            LetKw => "'let'",
-            Ident => "identifier",
-            Number => "number",
-            Plus => "'+'",
-            Minus => "'-'",
-            Star => "'*'",
-            Slash => "'/'",
-            Equals => "'='",
-            LParen => "'('",
-            RParen => "')'",
-            LBrace => "'{'",
-            RBrace => "'}'",
-            Error => "an unrecognized token",
+            Self::Whitespace => "whitespace",
+            Self::Comment => "comment",
+            Self::LetKw => "'let'",
+            Self::Ident => "identifier",
+            Self::Number => "number",
+            Self::Plus => "'+'",
+            Self::Minus => "'-'",
+            Self::Star => "'*'",
+            Self::Slash => "'/'",
+            Self::Equals => "'='",
+            Self::LParen => "'('",
+            Self::RParen => "')'",
+            Self::LBrace => "'{'",
+            Self::RBrace => "'}'",
+            Self::Error => "an unrecognized token",
         })
     }
 }

@@ -10,7 +10,7 @@ pub enum SyntaxKind {
 }
 
 impl fmt::Debug for SyntaxKind {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             SyntaxKind::Token(kind) => kind.fmt(f),
             SyntaxKind::Node(kind) => kind.fmt(f),

@@ -64,7 +64,7 @@ impl<T> From<Idx<T>> for usize {
 }
 
 impl<T> fmt::Debug for Idx<T> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut type_name = std::any::type_name::<T>();
 
         if let Some(i) = type_name.rfind(':') {
@@ -75,7 +75,7 @@ impl<T> fmt::Debug for Idx<T> {
 }
 
 impl<T> fmt::Display for Idx<T> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         self.raw.fmt(f)
     }
 }
