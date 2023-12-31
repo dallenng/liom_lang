@@ -65,25 +65,19 @@ I'm open to contributions, don't hesitate to open issues and submit PR. I try to
 To format the code :
 
 ```shell
-cargo fmt
+./ci/fmt.sh
 ```
 
-To lint the code :
+To lint and test the code :
 
 ```shell
-cargo clippy
+./ci/check.sh
 ```
 
-To test the code :
+To fuzz the code for 30min :
 
 ```shell
-cargo test
-```
-
-To fuzz the code :
-
-```shell
-cargo fuzz run main
+./ci/fuzz.sh
 ```
 
 ## Acknowledgment

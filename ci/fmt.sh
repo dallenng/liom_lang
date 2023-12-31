@@ -1,11 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-set -e
+set -eux
 
 cargo fmt --all --check
 cargo sort --workspace --check --check-format
-
-cd fuzz
-
-cargo fmt --check
-cargo sort --check --check-format

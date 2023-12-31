@@ -1,0 +1,29 @@
+name: Fuzz
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  fuzz:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@nightly
+      - uses: Swatinem/rust-cache@v2
+      - name: Install cargo-fuzz
+        run: cargo install --locked cargo-fuzz
+
+      - name: Run fuzz
+        run: ci/fuzz.sh
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: fuzz-artifacts
+          path: crates/fuzz/artifacts/

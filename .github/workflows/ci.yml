@@ -16,19 +16,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: hecrj/setup-rust-action@v1
+      - uses: dtolnay/rust-toolchain@nightly
         with:
-          rust-version: nightly
           components: rustfmt
       - uses: Swatinem/rust-cache@v2
       - name: Install cargo-sort
-        run: cargo install cargo-sort
+        run: cargo install --locked cargo-sort
 
       - name: Check formatting
         run: ci/fmt.sh
 
   check:
     strategy:
+      fail-fast: false
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
 
@@ -36,34 +36,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: hecrj/setup-rust-action@v1
+      - uses: dtolnay/rust-toolchain@nightly
         with:
-          rust-version: nightly
           components: clippy
       - uses: Swatinem/rust-cache@v2
 
       - name: Check
         run: ci/check.sh
         shell: bash
-
-  fuzz:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: hecrj/setup-rust-action@v1
-        with:
-          rust-version: nightly
-          components: clippy
-      - uses: Swatinem/rust-cache@v2
-      - name: Install cargo-fuzz
-        run: cargo install cargo-fuzz
-
-      - name: Check and run fuzz
-        run: ci/fuzz.sh
-
-      - uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: fuzz-artifacts
-          path: fuzz/artifacts
