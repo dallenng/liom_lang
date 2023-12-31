@@ -1,5 +1,5 @@
-artifacts
-coverage
+artifacts/
+coverage/
 
 # Leave an example input for fuzzing
 corpus/*
