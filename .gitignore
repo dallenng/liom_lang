@@ -4,12 +4,12 @@
 target/
 
 ### Fuzz ###
-crates/fuzz/artifacts/
-crates/fuzz/coverage/
+fuzz/artifacts/
+fuzz/coverage/
 
 # Leave an example input for fuzzing
-crates/fuzz/corpus/*
-!crates/fuzz/corpus/main/
+fuzz/corpus/*
+!fuzz/corpus/main/
 
-crates/fuzz/corpus/main/*
-!crates/fuzz/corpus/main/example
+fuzz/corpus/main/*
+!fuzz/corpus/main/example

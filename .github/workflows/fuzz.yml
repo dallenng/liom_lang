@@ -26,4 +26,4 @@ jobs:
         if: failure()
         with:
           name: fuzz-artifacts
-          path: crates/fuzz/artifacts/
+          path: fuzz/artifacts/
