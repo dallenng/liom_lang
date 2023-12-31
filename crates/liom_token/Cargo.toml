@@ -3,6 +3,10 @@ name = "liom_token"
 version = { workspace = true }
 authors = { workspace = true }
 edition = { workspace = true }
+repository = { workspace = true }
 license = { workspace = true }
 
 [dependencies]
+
+[lints]
+workspace = true

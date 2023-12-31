@@ -3,6 +3,7 @@ name = "liom_lexer"
 version = { workspace = true }
 authors = { workspace = true }
 edition = { workspace = true }
+repository = { workspace = true }
 license = { workspace = true }
 
 [dependencies]
@@ -12,3 +13,6 @@ regex-automata = { workspace = true }
 [build-dependencies]
 liom_token = { workspace = true }
 regex-automata = { workspace = true, features = ["std"] }
+
+[lints]
+workspace = true

@@ -1,12 +1,25 @@
 [package]
-name = "liom_cli"
-version = { workspace = true }
+name = "fuzz"
+version = "0.0.0"
 authors = { workspace = true }
 edition = { workspace = true }
 repository = { workspace = true }
 license = { workspace = true }
+publish = false
+
+[package.metadata]
+cargo-fuzz = true
+
+[[bin]]
+name = "main"
+path = "fuzz_targets/main.rs"
+test = false
+doctest = false
+bench = false
+doc = false
 
 [dependencies]
+libfuzzer-sys = { workspace = true }
 liom_hir = { workspace = true }
 liom_syntax = { workspace = true }
 

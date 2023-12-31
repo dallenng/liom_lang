@@ -3,8 +3,12 @@ name = "liom_parser"
 version = { workspace = true }
 authors = { workspace = true }
 edition = { workspace = true }
+repository = { workspace = true }
 license = { workspace = true }
 
 [dependencies]
 liom_node = { workspace = true }
 liom_token = { workspace = true }
+
+[lints]
+workspace = true
