@@ -1,18 +1,17 @@
 [workspace]
 members = ["crates/*"]
-exclude = ["fuzz"]
 resolver = "2"
 
 [workspace.package]
-version = "0.1.0"
+version = "0.0.0"
 authors = ["Guillaume Dallenne <dallenneguillaume@gmail.com>"]
 edition = "2021"
+repository = "https://github.com/dallenng/liom_lang"
 license = "MIT"
 
 [workspace.dependencies]
 # Internal
 arena = { path = "crates/arena", default-features = false }
-liom_cli = { path = "crates/liom_cli", default-features = false }
 liom_hir = { path = "crates/liom_hir", default-features = false }
 liom_lexer = { path = "crates/liom_lexer", default-features = false }
 liom_node = { path = "crates/liom_node", default-features = false }
@@ -22,6 +21,84 @@ liom_token = { path = "crates/liom_token", default-features = false }
 
 # External
 expect-test = { version = "1.4.0", default-features = false }
+libfuzzer-sys = { version = "0.4.6", default-features = false }
 regex-automata = { version = "0.1.10", default-features = false }
 rowan = { version = "0.15.10", default-features = false }
 smol_str = { version = "0.1.23", default-features = false }
+
+# Embark standard lints v6 for Rust 1.55+
+# for more info see: <https://github.com/EmbarkStudios/rust-ecosystem/issues/59>
+[workspace.lints.rust]
+future_incompatible = "warn"
+nonstandard_style = "warn"
+rust_2018_idioms = "warn"
+
+[workspace.lints.clippy]
+all = "warn"
+await_holding_lock = "warn"
+char_lit_as_u8 = "warn"
+checked_conversions = "warn"
+dbg_macro = "warn"
+debug_assert_with_mut_call = "warn"
+doc_markdown = "warn"
+empty_enum = "warn"
+enum_glob_use = "warn"
+exit = "warn"
+expl_impl_clone_on_copy = "warn"
+explicit_deref_methods = "warn"
+explicit_into_iter_loop = "warn"
+fallible_impl_from = "warn"
+filter_map_next = "warn"
+flat_map_option = "warn"
+float_cmp_const = "warn"
+fn_params_excessive_bools = "warn"
+from_iter_instead_of_collect = "warn"
+if_let_mutex = "warn"
+implicit_clone = "warn"
+imprecise_flops = "warn"
+inefficient_to_string = "warn"
+invalid_upcast_comparisons = "warn"
+large_digit_groups = "warn"
+large_stack_arrays = "warn"
+large_types_passed_by_value = "warn"
+let_unit_value = "warn"
+linkedlist = "warn"
+lossy_float_literal = "warn"
+macro_use_imports = "warn"
+manual_ok_or = "warn"
+map_err_ignore = "warn"
+map_flatten = "warn"
+map_unwrap_or = "warn"
+match_on_vec_items = "warn"
+match_same_arms = "warn"
+match_wild_err_arm = "warn"
+match_wildcard_for_single_variants = "warn"
+mem_forget = "warn"
+mismatched_target_os = "warn"
+missing_enforced_import_renames = "warn"
+mut_mut = "warn"
+mutex_integer = "warn"
+needless_borrow = "warn"
+needless_continue = "warn"
+needless_for_each = "warn"
+option_option = "warn"
+path_buf_push_overwrite = "warn"
+ptr_as_ptr = "warn"
+rc_mutex = "warn"
+ref_option_ref = "warn"
+rest_pat_in_fully_bound_structs = "warn"
+same_functions_in_if_condition = "warn"
+semicolon_if_nothing_returned = "warn"
+single_match_else = "warn"
+string_add_assign = "warn"
+string_add = "warn"
+string_lit_as_bytes = "warn"
+string_to_string = "warn"
+todo = "warn"
+trait_duplication_in_bounds = "warn"
+unimplemented = "warn"
+unnested_or_patterns = "warn"
+unused_self = "warn"
+useless_transmute = "warn"
+verbose_file_reads = "warn"
+zero_sized_map_values = "warn"
