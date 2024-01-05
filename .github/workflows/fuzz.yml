@@ -3,6 +3,10 @@ name: Fuzz
 on:
   push:
     branches: [ master ]
+    paths:
+      - crates/**
+      - fuzz/**
+      - Cargo.lock
   workflow_dispatch:
 
 env:
@@ -17,7 +21,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@nightly
       - uses: Swatinem/rust-cache@v2
       - name: Install cargo-fuzz
-        run: cargo install cargo-fuzz
+        run: cargo install --locked cargo-fuzz
 
       - name: Run fuzz
         run: ci/fuzz.sh
