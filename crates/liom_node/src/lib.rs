@@ -1,6 +1,5 @@
 #![feature(variant_count)]
 
-use std::convert::TryFrom;
 use std::mem;
 
 #[repr(u8)]
