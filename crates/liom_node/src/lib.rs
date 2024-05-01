@@ -46,7 +46,7 @@ impl TryFrom<u8> for NodeKind {
     fn try_from(value: u8) -> Result<Self, <Self as TryFrom<u8>>::Error> {
         match value {
             // Safe because `value` is a valid representation of `NodeKind`
-            Self::KIND_MIN..=Self::KIND_MAX => Ok(unsafe { mem::transmute(value) }),
+            Self::KIND_MIN..=Self::KIND_MAX => Ok(unsafe { mem::transmute::<u8, Self>(value) }),
             _ => Err(()),
         }
     }
