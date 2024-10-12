@@ -2,8 +2,8 @@ use std::fmt;
 
 use rowan::TextRange;
 
-use crate::ast::{AstNode, AstToken, Literal};
 use crate::SyntaxNode;
+use crate::ast::{AstNode, AstToken, Literal};
 
 #[cfg(test)]
 mod tests;

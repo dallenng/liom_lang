@@ -1,10 +1,10 @@
 use liom_node::NodeKind;
 use liom_token::TokenKind;
 
-use crate::parser::{CompletedMarker, Parser};
 use crate::TokenSource;
+use crate::parser::{CompletedMarker, Parser};
 
-impl<'t, T: TokenSource> Parser<'t, T> {
+impl<T: TokenSource> Parser<'_, T> {
     pub(super) fn expr(&mut self) -> Option<CompletedMarker> {
         self.expr_binding_power(0)
     }

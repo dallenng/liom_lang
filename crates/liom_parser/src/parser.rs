@@ -27,7 +27,7 @@ impl<'t, T> Parser<'t, T> {
     }
 }
 
-impl<'t, T: TokenSource> Parser<'t, T> {
+impl<T: TokenSource> Parser<'_, T> {
     pub fn parse(mut self) -> Vec<Event> {
         self.root();
         self.events

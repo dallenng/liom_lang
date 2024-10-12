@@ -62,7 +62,7 @@ impl<'s> Iterator for Lexer<'s> {
     }
 }
 
-impl<'s> FusedIterator for Lexer<'s> {}
+impl FusedIterator for Lexer<'_> {}
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub struct Token<'s> {

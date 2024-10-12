@@ -1,6 +1,6 @@
 use std::ops::Range;
 
-use expect_test::{expect, Expect};
+use expect_test::{Expect, expect};
 
 use super::*;
 

@@ -1,12 +1,12 @@
 use liom_node::NodeKind;
 
-use crate::parser::{CompletedMarker, Parser};
 use crate::TokenSource;
+use crate::parser::{CompletedMarker, Parser};
 
 mod expr;
 mod stmt;
 
-impl<'t, T: TokenSource> Parser<'t, T> {
+impl<T: TokenSource> Parser<'_, T> {
     pub fn root(&mut self) -> CompletedMarker {
         let m = self.start();
 

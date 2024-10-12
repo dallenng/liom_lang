@@ -1,5 +1,5 @@
 use liom_token::TokenKind;
-use regex_automata::{DenseDFA, DFA};
+use regex_automata::{DFA, DenseDFA};
 
 include!(concat!(env!("OUT_DIR"), "/generated.rs"));
 

@@ -13,7 +13,7 @@ pub struct TreeSink<'t> {
     errors: Vec<SyntaxError>,
 }
 
-impl<'t> liom_parser::TreeSink for TreeSink<'t> {
+impl liom_parser::TreeSink for TreeSink<'_> {
     fn start_node(&mut self, kind: NodeKind) {
         self.builder.start_node(LiomLanguage::kind_to_raw(kind.into()));
         self.eat_trivia();
