@@ -48,7 +48,7 @@ impl<'t> TreeSink<'t> {
     }
 
     fn eat_trivia(&mut self) {
-        while self.tokens.get(self.pos).map_or(false, |t| t.kind.is_trivia()) {
+        while self.tokens.get(self.pos).is_some_and(|t| t.kind.is_trivia()) {
             self.do_token();
         }
     }

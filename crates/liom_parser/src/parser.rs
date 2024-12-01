@@ -69,7 +69,7 @@ impl<T: TokenSource> Parser<'_, T> {
     }
 
     fn at_set(&self, set: &[TokenKind]) -> bool {
-        self.current().map_or(false, |k| set.contains(&k))
+        self.current().is_some_and(|k| set.contains(&k))
     }
 
     fn current(&self) -> Option<TokenKind> {
