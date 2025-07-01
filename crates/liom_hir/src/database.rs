@@ -16,7 +16,7 @@ impl Database {
         Self { exprs: Arena::new() }
     }
 
-    pub fn lower(&mut self, root: &ast::Root) -> impl Iterator<Item = Stmt> + '_ {
+    pub fn lower(&mut self, root: &ast::Root) -> impl Iterator<Item = Stmt> {
         root.stmts().filter_map(move |stmt| self.lower_stmt(stmt))
     }
 
