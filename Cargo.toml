@@ -21,7 +21,7 @@ liom_syntax = { path = "crates/liom_syntax", default-features = false }
 liom_token = { path = "crates/liom_token", default-features = false }
 regex-automata = { version = "0.1.10", default-features = false }
 rowan = { version = "0.15.16", default-features = false }
-smol_str = { version = "0.2.2", default-features = false }
+smol_str = { version = "0.3.4", default-features = false }
 
 [workspace.lints.rust]
 deprecated_safe = "warn"
